@@ -37,7 +37,7 @@
 
   <!-- FILTER RIWAYAT -->
   <div class="filter-box">
-    <label for="filter">Filter Riwayat:</label>
+    <label for="filter">Riwayat Transksi:</label>
     <select id="filter" onchange="filterTransaksi()">
       <option value="all">Semua</option>
       <option value="weekly">Mingguan</option>
@@ -51,6 +51,16 @@
   <!-- EXPORT PDF -->
   <button onclick="exportPDF()" class="btn export">Export to PDF</button>
 
+<!-- FORM ALARM -->
+<div class="alarm-box">
+  <h3>Pengingat Pembayaran</h3>
+  <input type="datetime-local" id="alarmTime">
+  <input type="text" id="alarmNote" placeholder="Catatan pengingat">
+  <button onclick="setAlarm()" class="btn">Set Alarm</button>
+  <p style="font-size:12px;opacity:0.7;">
+    ⚠ Klik tombol set alarm untuk mengaktifkan notifikasi & suara alarm
+  </p>
+</div>
   <!-- FORM ALARM -->
   <div class="alarm-box">
     <h3>Pengingat Pembayaran</h3>
