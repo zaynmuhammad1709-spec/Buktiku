@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Buktiku</title>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+  <img src="logo.png" class="logo-small">
+  <h2>Buktiku Dashboard</h2>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h3>Tambah Transaksi</h3>
+<input type="text" id="title" placeholder="Nama Transaksi">
+<input type="number" id="amount" placeholder="Jumlah (Rp)">
+<input type="date" id="date">
+<input type="file" id="receipt">
+<button onclick="addTransaction()">Simpan</button>
+</div>
+
+<div class="card">
+<h3>Pencarian</h3>
+<input type="text" id="searchName" placeholder="Cari nama">
+<input type="month" id="searchMonth">
+<button onclick="applySearch()">Cari</button>
+<button onclick="resetSearch()">Reset</button>
+</div>
+
+<div class="card">
+<h3>Daftar Transaksi</h3>
+<div id="transactionList"></div>
+<button onclick="downloadPDF()">Download PDF</button>
+</div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
