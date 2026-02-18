@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buktiku - Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<div id="loading">Loading...</div>
+<header>
+  <img src="logo.png" alt="Buktiku Logo" class="logo">
+  <button id="logoutBtn">Logout</button>
+</header>
+
+<section class="transaksi-section">
+  <h2>Tambah Transaksi</h2>
+  <input type="date" id="tanggal">
+  <input type="number" id="nominal" placeholder="Nominal">
+  <input type="text" id="keterangan" placeholder="Keterangan">
+  <input type="file" id="fileInput">
+  <button id="saveTransaksiBtn">Simpan Transaksi</button>
+</section>
+
+<section class="filter-section">
+  <input type="text" id="searchInput" placeholder="Cari transaksi...">
+  <select id="filter">
+    <option value="">Semua</option>
+    <option value="weekly">Mingguan</option>
+    <option value="monthly">Bulanan</option>
+  </select>
+  <p>Total: <span id="totalValue">Rp 0</span></p>
+  <button onclick="exportPDF()">Export PDF</button>
+</section>
+
+<section class="list-section">
+  <div id="list"></div>
+</section>
+
+<section class="alarm-section">
+  <h2>Set Alarm / Pengingat</h2>
+  <input type="datetime-local" id="alarmTime">
+  <input type="text" id="alarmNote" placeholder="Catatan alarm">
+  <button onclick="setAlarm()">Set Alarm</button>
+  <div id="alarmListBox"></div>
+</section>
+</body>
+</html>
