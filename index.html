@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buktiku Login</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Login - Buktiku</title>
 </head>
+<body style="font-family:Arial; text-align:center; margin-top:100px;">
 
-<body class="center">
+  <h2>Login Buktiku</h2>
+  <button id="loginBtn">Login dengan Google</button>
 
-  <div class="card login-card">
-    <img src="logo.png" class="logo">
-    <h2>Buktiku by Fitrah</h2>
-    <button onclick="loginGoogle()">
-      Login dengan Google
-    </button>
-  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithPopup, 
+      GoogleAuthProvider, 
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-  <!-- PENTING -->
-  <script type="module" src="app.js"></script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBIaTx9x1_yz5N6t0uBp2eTc7tIBhMLRQA",
+      authDomain: "buktiku-6e36b.firebaseapp.com",
+      projectId: "buktiku-6e36b",
+      storageBucket: "buktiku-6e36b.firebasestorage.app",
+      messagingSenderId: "864927339878",
+      appId: "1:864927339878:web:e11a53ac31e63c098c64a7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Login Button
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then(() => {
+          window.location.href = "dashboard.html";
+        })
+        .catch((error) => {
+          alert("Login gagal: " + error.message);
+        });
+    });
+
+    // Auto redirect kalau sudah login
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "dashboard.html";
+      }
+    });
+  </script>
 
 </body>
 </html>
