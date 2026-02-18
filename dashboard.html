@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Buktiku Elite Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <img src="logo.png" class="logo">
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <section class="transaksi glass-card">
+      <h2>Tambah Transaksi</h2>
+      <input type="date" id="tanggal">
+      <input type="number" id="nominal" placeholder="Nominal">
+      <input type="text" id="keterangan" placeholder="Keterangan">
+      <input type="file" id="fileInput">
+      <button id="saveTransaksi">Simpan Transaksi</button>
+    </section>
+
+    <section class="alarm glass-card">
+      <h2>Set Alarm / Pengingat</h2>
+      <input type="datetime-local" id="alarmTime">
+      <input type="text" id="alarmNote" placeholder="Catatan">
+      <button id="setAlarmBtn">Set Alarm</button>
+    </section>
+
+    <section class="riwayat glass-card">
+      <h2>Riwayat Transaksi</h2>
+      <button id="exportPDF">Export PDF</button>
+      <div id="transaksiList"></div>
+      <div class="total">Total: <span id="totalTransaksi">0</span></div>
+    </section>
+  </main>
+
+  <div id="loading" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+</body>
+</html>
