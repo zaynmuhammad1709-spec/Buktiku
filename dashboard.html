@@ -1,54 +1,57 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Buktiku</title>
-<link rel="stylesheet" href="style.css">
-
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Dashboard - Buktiku</title>
 </head>
+<body style="font-family:Arial; text-align:center; margin-top:80px;">
 
-<body>
+  <h2>Dashboard</h2>
 
-<header class="header">
-  <img src="logo.png" class="logo-small">
-  <h2>Buktiku Dashboard</h2>
-  <button onclick="logout()">Logout</button>
-</header>
+  <img id="photo" width="100" style="border-radius:50%"><br><br>
+  <h3 id="name"></h3>
+  <p id="email"></p>
 
-<div class="container">
+  <button id="logoutBtn">Logout</button>
 
-<div class="card">
-<h3>Tambah Transaksi</h3>
-<input type="text" id="title" placeholder="Nama Transaksi">
-<input type="number" id="amount" placeholder="Jumlah (Rp)">
-<input type="date" id="date">
-<input type="file" id="receipt">
-<button onclick="addTransaction()">Simpan</button>
-</div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { 
+      getAuth, 
+      onAuthStateChanged, 
+      signOut 
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-<div class="card">
-<h3>Pencarian</h3>
-<input type="text" id="searchName" placeholder="Cari nama">
-<input type="month" id="searchMonth">
-<button onclick="applySearch()">Cari</button>
-<button onclick="resetSearch()">Reset</button>
-</div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBIaTx9x1_yz5N6t0uBp2eTc7tIBhMLRQA",
+      authDomain: "buktiku-6e36b.firebaseapp.com",
+      projectId: "buktiku-6e36b",
+      storageBucket: "buktiku-6e36b.firebasestorage.app",
+      messagingSenderId: "864927339878",
+      appId: "1:864927339878:web:e11a53ac31e63c098c64a7"
+    };
 
-<div class="card">
-<h3>Daftar Transaksi</h3>
-<div id="transactionList"></div>
-<button onclick="downloadPDF()">Download PDF</button>
-</div>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-</div>
+    // Cek Login
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("name").innerText = user.displayName;
+        document.getElementById("email").innerText = user.email;
+        document.getElementById("photo").src = user.photoURL;
+      } else {
+        window.location.href = "index.html";
+      }
+    });
 
-<script src="app.js"></script>
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  </script>
+
 </body>
 </html>
