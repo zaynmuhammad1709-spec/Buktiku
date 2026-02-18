@@ -152,6 +152,83 @@ function exportPDF(){
 // =======================
 // ALARM PERMANEN + AUTO LOAD
 // =======================
+// ALARM PERMANEN + BUNYI FIX
+// =======================
+if(Notification.permission !== "granted") Notification.requestPermission();
+
+let audioAllowed = false;
+
+// Deteksi interaksi user untuk izinkan audio
+document.addEventListener('click',()=>{audioAllowed=true;}, {once:true});
+document.addEventListener('keydown',()=>{audioAllowed=true;}, {once:true});
+
+function setAlarm(){
+  console.log("Tombol set alarm ditekan!");
+  const time = document.getElementById("alarmTime").value;
+  const note = document.getElementById("alarmNote").value;
+  const user = auth.currentUser;
+
+  if(!time || !note){
+    alert("Isi waktu & catatan!");
+    return;
+  }
+
+  db.collection("alarms").add({
+    uid:user.uid,
+    time,
+    note,
+    triggered:false
+  }).then(()=>{
+    alert("Alarm disimpan!");
+    loadAlarms(user.uid);
+  }).catch(err=>alert("Gagal simpan alarm: "+err.message));
+}
+
+function loadAlarms(uid){
+  alarmList=[];
+  const alarmBox=document.getElementById("alarmListBox");
+  alarmBox.innerHTML="<h3>Daftar Alarm</h3>";
+
+  db.collection("alarms").where("uid","==",uid).get()
+    .then(snapshot=>{
+      snapshot.forEach(doc=>{
+        const data=doc.data();
+        alarmList.push({id:doc.id,...data});
+
+        const div=document.createElement("div");
+        div.className="transaction-item";
+        div.innerHTML=`<p>${data.time}</p><p>${data.note}</p>`;
+        alarmBox.appendChild(div);
+
+        scheduleAlarm(doc.id,data.time,data.note,data.triggered);
+      });
+    });
+}
+
+function scheduleAlarm(id,time,note,triggered){
+  if(triggered) return;
+  const alarmTime=new Date(time).getTime();
+  const now=new Date().getTime();
+  const delay=alarmTime-now;
+  if(delay<=0) return;
+
+  setTimeout(()=>{
+    new Notification("🔔 Pengingat Pembayaran",{body:note});
+    
+    if(audioAllowed){
+      const audio = new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
+      audio.play().catch(err=>{
+        console.log("Audio diblokir browser:", err);
+        alert("⚠ Browser memblokir suara alarm, klik halaman untuk mengaktifkan audio");
+      });
+    } else {
+      alert("⚠ Klik halaman untuk mengaktifkan suara alarm agar terdengar");
+    }
+
+    db.collection("alarms").doc(id).update({triggered:true});
+  },delay);
+}
+// =======================
 if(Notification.permission !== "granted") Notification.requestPermission();
 
 function setAlarm(){
