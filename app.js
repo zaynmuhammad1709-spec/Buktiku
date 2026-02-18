@@ -1,3 +1,11 @@
+// login.js
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+document.getElementById("googleLogin")?.addEventListener("click", ()=>{
+  auth.signInWithPopup(provider)
+    .then(()=>window.location.href="dashboard.html")
+    .catch(err=>alert(err.message));
+});
 // ====================== Firebase Config ======================
 const firebaseConfig = {
   apiKey: "AIzaSyBIaTx9x1_yz5N6t0uBp2eTc7tIBhMLRQA",
@@ -8,6 +16,12 @@ const firebaseConfig = {
   appId: "1:864927339878:web:e11a53ac31e63c098c64a7"
 };
 firebase.initializeApp(firebaseConfig);
+// dashboard.js
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+document.getElementById("saveTransaksiBtn")?.addEventListener("click", tambahTransaksi);
+// semua fungsi transaksi, loadData, alarm, exportPDF, dsb.
 
 const auth = firebase.auth();
 const db = firebase.firestore();
