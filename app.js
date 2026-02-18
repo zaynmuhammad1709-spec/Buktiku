@@ -11,6 +11,7 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+document.getElementById("saveTransaksiBtn")?.addEventListener("click", tambahTransaksi);
 
 // ====================== Global ======================
 let transaksiData = [];
