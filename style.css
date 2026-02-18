@@ -1,0 +1,13 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;min-height:100vh;}
+.login-container{display:flex;justify-content:center;align-items:center;height:100vh;}
+.login-card{background:rgba(255,255,255,0.08);padding:40px;border-radius:20px;text-align:center;backdrop-filter:blur(20px);width:350px;}
+.logo{width:80px;margin-bottom:20px;}
+.subtitle{opacity:0.7;margin-bottom:30px;}
+.login-btn{width:100%;margin-top:10px;}
+.dashboard{padding:30px;max-width:900px;margin:auto;}
+.form-box, .alarm-box, .transaction-list, .alarm-list, .filter-box, .search-box, .total-box{background:rgba(255,255,255,0.08);padding:20px;border-radius:15px;margin-bottom:20px;}
+input, select{display:block;width:100%;margin:10px 0;padding:10px;border-radius:10px;border:none;}
+.transaction-item{display:flex;justify-content:space-between;background:#ffffff11;padding:10px;border-radius:10px;margin-top:10px;}
+.btn{background:linear-gradient(90deg,#00c6ff,#0072ff);border:none;padding:10px 20px;border-radius:25px;color:white;cursor:pointer;}
+.export{width:100%;margin-top:10px;}
