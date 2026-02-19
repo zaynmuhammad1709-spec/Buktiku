@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buktiku Elite Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Buktiku Elite Pro</h1>
+
+  <div class="card total-card">
+    <h2>Total Transaksi</h2>
+    <h1 id="totalNominal">Rp 0</h1>
+  </div>
+
+  <div class="card">
+    <h2>Tambah Transaksi</h2>
+    <input type="date" id="tanggal">
+    <input type="number" id="nominal" placeholder="Nominal">
+    <input type="text" id="keterangan" placeholder="Keterangan">
+    <input type="text" id="bukti_url" placeholder="Link Bukti (opsional)">
+    <button onclick="tambahTransaksi()">Simpan</button>
+  </div>
+
+  <div class="card">
+    <h2>Filter</h2>
+    <button onclick="filterMingguan()">Mingguan</button>
+    <button onclick="filterBulanan()">Bulanan</button>
+    <button onclick="loadData()">Semua</button>
+  </div>
+
+  <div class="card">
+    <h2>Riwayat</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Nominal</th>
+          <th>Keterangan</th>
+        </tr>
+      </thead>
+      <tbody id="riwayat"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
