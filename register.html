@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buktiku - Register</title>
+  <style> /* Sama seperti login.html, copy-paste style */ </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Daftar di Buktiku</h1>
+
+  <form onsubmit="register(event)">
+    <input type="email" id="email" placeholder="Email" required autocomplete="email"/>
+    <input type="password" id="password" placeholder="Password (min 6 karakter)" required autocomplete="new-password"/>
+    <button type="submit">Daftar</button>
+  </form>
+
+  <a href="login.html" class="back">Sudah punya akun? Login di sini</a>
+  <div id="message"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://xrvvwyrvjwloxxvcurev.supabase.co';           // ← GANTI
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhydnZ3eXJ2andsb3h4dmN1cmV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NzEwMTksImV4cCI6MjA4NzA0NzAxOX0.ZgC-oi8RaqKK4tkzPpECO_fOUUMUqFpl0p6oxkXMJK8'; // ← GANTI
+
+  const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  async function register(e) {
+    e.preventDefault();
+    const msg = document.getElementById('message');
+    msg.textContent = ''; msg.className = '';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (password.length < 6) {
+      msg.textContent = 'Password minimal 6 karakter';
+      msg.className = 'error';
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+
+    if (error) {
+      msg.textContent = error.message || 'Gagal daftar';
+      msg.className = 'error';
+    } else if (data.user) {
+      msg.textContent = 'Pendaftaran berhasil! Cek email untuk konfirmasi (jika aktif). Silakan login.';
+      msg.className = 'success';
+    }
+  }
+</script>
+
+</body>
+</html>
