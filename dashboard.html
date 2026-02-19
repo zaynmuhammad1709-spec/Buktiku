@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard Elite Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <h2>Buktiku Elite Pro</h2>
+  <button id="logoutBtn" class="danger">Logout</button>
+</div>
+
+<div class="glass-card total-box">
+  <h3>Total Transaksi</h3>
+  <h1 id="totalValue">Rp 0</h1>
+</div>
+
+<div class="glass-card">
+  <h3>Tambah Transaksi</h3>
+
+  <input type="date" id="tanggal">
+  <input type="number" id="nominal" placeholder="Nominal">
+  <input type="text" id="keterangan" placeholder="Keterangan">
+  <input type="file" id="fileInput">
+
+  <button id="saveBtn">Simpan</button>
+</div>
+
+<div class="glass-card">
+  <h3>Filter & Pencarian</h3>
+  <select id="filter">
+    <option value="all">Semua</option>
+    <option value="weekly">Mingguan</option>
+    <option value="monthly">Bulanan</option>
+  </select>
+  <input type="text" id="searchInput" placeholder="Cari...">
+</div>
+
+<div class="glass-card">
+  <h3>Riwayat Transaksi</h3>
+  <div id="list"></div>
+</div>
+
+<div class="glass-card">
+  <h3>Alarm Pengingat</h3>
+  <input type="datetime-local" id="alarmTime">
+  <input type="text" id="alarmNote" placeholder="Catatan alarm">
+  <button id="setAlarmBtn">Set Alarm</button>
+  <div id="alarmList"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
