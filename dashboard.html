@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buktiku - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container dashboard-text">
+  <h1>Selamat Datang di Dashboard Buktiku!</h1>
+  <p>Ini halaman bukti withdraw / kemenangan. Tambah konten/gambar di sini.</p>
+  <p id="user-info" style="font-weight:bold;color:#28a745;"></p>
+  <button onclick="logout()" class="btn-logout">Logout</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script>initDashboard();</script>
+</body>
+</html>
