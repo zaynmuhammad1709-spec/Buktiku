@@ -1,4 +1,4 @@
-const filterSelect = document.getElementById("filterSelect");
+mconst filterSelect = document.getElementById("filterSelect");
 const searchDate = document.getElementById("searchDate");
 
 async function loadData(){
