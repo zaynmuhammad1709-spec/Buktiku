@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Buktiku - Dashboard</title>
+  <style>body { font-family:Arial; text-align:center; padding:50px; }</style>
+</head>
+<body>
+  <h1>Selamat datang di Dashboard Buktiku!</h1>
+  <p>Ini halaman bukti kemenangan / withdraw (isi sesuai kebutuhanmu).</p>
+  <button onclick="logout()">Logout</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://xrvvwyrvjwloxxvcurev.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhydnZ3eXJ2andsb3h4dmN1cmV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NzEwMTksImV4cCI6MjA4NzA0NzAxOX0.ZgC-oi8RaqKK4tkzPpECO_fOUUMUqFpl0p6oxkXMJK8';
+
+    const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) window.location.href = 'login.html';
+      else document.body.insertAdjacentHTML('beforeend', `<p>Logged in as: ${session.user.email}</p>`);
+    });
+
+    async function logout() {
+      await supabase.auth.signOut();
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
