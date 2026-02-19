@@ -1,44 +1,44 @@
-// Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyBIaTx9x1_yz5N6t0uBp2eTc7tIBhMLRQA",
-  authDomain: "buktiku-6e36b.firebaseapp.com",
-  projectId: "buktiku-6e36b",
-  storageBucket: "buktiku-6e36b.appspot.com",
-  messagingSenderId: "864927339878",
-  appId: "1:864927339878:web:e11a53ac31e63c098c64a7"
-};
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-firebase.initializeApp(firebaseConfig);
+const SUPABASE_URL = "https://xrvvwyrvjwloxxvcurev.supabase.co"
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhydnZ3eXJ2andsb3h4dmN1cmV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NzEwMTksImV4cCI6MjA4NzA0NzAxOX0.ZgC-oi8RaqKK4tkzPpECO_fOUUMUqFpl0p6oxkXMJK8"
 
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-const storage = firebase.storage();
-const db = firebase.firestore();
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-let transaksiData = [];
-let alarmList = [];
-let audioAllowed=false;
+document.addEventListener("DOMContentLoaded", async () => {
 
-document.addEventListener('click',()=>{audioAllowed=true;},{once:true});
-document.addEventListener('keydown',()=>{audioAllowed=true;},{once:true});
+  const loginBtn = document.getElementById("loginBtn")
+  const logoutBtn = document.getElementById("logoutBtn")
 
-const searchInput=document.getElementById("searchInput");
-const filterSelect=document.getElementById("filter");
-
-// LOGIN GOOGLE
-function loginGoogle(){
-  auth.signInWithPopup(provider)
-    .then(()=>{window.location.href="dashboard.html";})
-    .catch(err=>alert("Login gagal: "+err.message));
-}
-
-// CEK USER
-auth.onAuthStateChanged(user=>{
-  if(user){ loadData(user.uid); loadAlarms(user.uid);}
-  else if(window.location.pathname.includes("dashboard.html")){
-    window.location.href="index.html";
+  // LOGIN GOOGLE
+  if (loginBtn) {
+    loginBtn.addEventListener("click", async () => {
+      await supabase.auth.signInWithOAuth({
+        provider: "google",
+      })
+    })
   }
-});
+
+  // LOGOUT
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+      await supabase.auth.signOut()
+      window.location.href = "index.html"
+    })
+  }
+
+  // CEK SESSION
+  const { data: { session } } = await supabase.auth.getSession()
+
+  if (session && window.location.pathname.includes("index")) {
+    window.location.href = "dashboard.html"
+  }
+
+  if (!session && window.location.pathname.includes("dashboard")) {
+    window.location.href = "index.html"
+  }
+
+})
 
 // TRANSAKSI
 function tambahTransaksi(){
